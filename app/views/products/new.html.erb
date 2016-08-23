@@ -1,0 +1,24 @@
+<%= form_for @product do |f| %>
+
+<%= @product.errors.full_messages.join(", ") %>
+
+<div>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+</div>
+<div>
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+</div>
+<div>
+  <%= f.label :price %>
+  <%= f.number_field :price %>
+</div>
+<div>
+  <%= f.label :category_id %>
+  <%= f.select(:category_id, @category.map {|x| [x.name, x.id] }) %>
+</div>
+
+<%= f.submit %>
+
+<% end %>

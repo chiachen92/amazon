@@ -1,0 +1,25 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @show_products.each do |p| %>
+    <tr>
+    <th scope="row"><%= p.id %></th>
+    <td><%= p.title %></td>
+    <td><%= p.description %></td>
+    <td><%= number_to_currency(p.price) %></td>
+    <td>
+    <button class="btn btn-default pull-right"><%= link_to "Delete", product_path(p.id), method: :delete, data: {confirm: "Are you sure you want to delete?"} %></button>
+    <button class="btn btn-default pull-right"><%= link_to "Edit", edit_product_path(p.id) %></button>
+    </td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>

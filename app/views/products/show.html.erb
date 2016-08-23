@@ -1,0 +1,31 @@
+<div class="panel panel-primary">
+  <div class="panel-heading clearfix" style="overflow: hidden">
+    <font size="5"><%= @product.title %></font>
+    <font size="5">Category:</font>
+    <font size="5"><%= @category.name %></font>
+    <font class="pull-right" size="5"><%= number_to_currency(@product.price) %> CAD</font>
+  </div>
+  <div class="panel-body"><%= @product.description %>
+    <button class="btn btn-default"><%= link_to "Return to List", products_path %></button>
+  </div>
+</div>
+
+<%= @review.errors.full_messages.join(", ") %>
+<h1>Write a review.</h1>
+<%= form_for [@product, @review] do |r| %>
+  <%= r.text_area :body %>
+  <%= r.select(:star_count, options_for_select([["1 Star", 1],["2 Stars", 2], ["3 Stars", 3], ["4 Stars", 4], ["5 Stars", 5]])) %>
+  <%= r.submit "Submit Review" %>
+<% end %>
+
+<% @product.reviews.each do |rev| %>
+  <%= rev.body %>
+  <%= rev.star_count %>
+  <%= link_to "Delete Review", [@product, rev], method: :delete, data: {confirm: "Are you sure?"} %>
+  <% if rev.user_id %>
+  <td><%= User.find(rev.user_id).full_name %></td>
+  <% else %>
+  <p></p>
+  <% end %>
+  <hr />
+<% end %>
